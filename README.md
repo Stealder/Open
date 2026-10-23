@@ -1,9 +1,3 @@
-# Loader & Configuration
-
-## 📖 Hướng dẫn sử dụng
-
-Copy đoạn script cấu hình bên dưới dán vào Executor hoặc file `.luau` trong thư mục `autoexec` để tùy chỉnh và chạy:
-
 ```lua
 getgenv().KaitunConfig = {
     -- 1. Chế độ cày cuốc (Progression & Combat)
@@ -41,6 +35,5 @@ getgenv().KaitunConfig = {
     }
 }
 
--- Tải và thực thi core script đã mã hóa từ GitHub (chạy ẩn ngầm, 0 leak log console)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Stealder/Open/main/kaitun.luau"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Stealder/Open/main/main.luau"))()
 ```
