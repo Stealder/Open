@@ -9,6 +9,10 @@ getgenv().KaitunConfig = {
     AutoSkipWave = true,
     AutoClaimBattlepass = true,
     AutoClaimDailyRewards = true,
+    RedeemCodes = {
+        Enabled = true,
+        List = {}
+    },
     AutoSell = {
         Enabled = true,
         Wave = 25
