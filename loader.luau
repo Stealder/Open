@@ -26,6 +26,10 @@ local executionDiagnostics = (function()
     }
     local corePhases = { ["waiting-game"]=true,starting=true,ready=true,failed=true,["retry-wait"]=true,teleporting=true }
     local loaderPhases = { loading=true,["retry-wait"]=true,failed=true,accepted=true,["core-active"]=true }
+    local entryPhases = { joining=true,failed=true,Started=true,RequestedFromServer=true,WaitingForServer=true,InProgress=true,
+        ["request_join_lobby"]=true,["request_join_lobby-accepted"]=true,
+        ["request_lock_level"]=true,["request_lock_level-accepted"]=true,
+        ["request_start_game"]=true,["waiting-for-teleport"]=true }
     local report = { Protocol=1,Build="loader-diagnostics-v1",Stage="manual-probe",Sequence=0,
         WriteErrors=0,VoltConsoleVisible=false,Capabilities={
             ReadFile=type(read)=="function",WriteFile=type(write)=="function",
@@ -89,6 +93,21 @@ local executionDiagnostics = (function()
         report.Loader=type(loader)=="table" and {
             Phase=loaderPhases[loader.Phase] and loader.Phase or "unknown",Attempt=number(loader.Attempt),
         } or nil
+        report.MapEntry=nil
+        local runtime=env.AA_LAST_RUNTIME_SNAPSHOT
+        if type(runtime)=="table" and runtime.PlaceId==game.PlaceId and runtime.JobId==game.JobId then
+            local transition=runtime.MatchTransitionState
+            local entry=type(transition)=="table" and transition.LobbyEntry
+            if type(entry)=="table" then
+                local level=type(entry.LevelKey)=="string" and #entry.LevelKey<=96 and entry.LevelKey:match("^[%w_%-]+$") and entry.LevelKey or nil
+                local failure=type(transition.LastTeleportFailure)=="table" and transition.LastTeleportFailure or {}
+                report.MapEntry={Mode=(entry.Mode=="Story" or entry.Mode=="Infinite") and entry.Mode or nil,
+                    LevelKey=level,Phase=entryPhases[entry.Phase] and entry.Phase or "unknown",
+                    Pending=transition.EntryPending==true,Teleporting=transition.Teleporting==true,
+                    FailureCount=number(transition.FailureCount),Blocked=transition.TeleportBlocked==true,
+                    NeedsExternalRestart=transition.NeedsExternalRestart==true,LastErrorCode=number(failure.Code)}
+            end
+        end
         env.AA_DIAGNOSTIC_STATUS=report
         if type(write)~="function" then report.WriteErrors=report.WriteErrors+1;return false end
         local saved=pcall(function() write(path,service.JSONEncode(service,report)) end)

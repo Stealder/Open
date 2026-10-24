@@ -154,6 +154,22 @@ class LoaderDiagnosticsTests(unittest.TestCase):
         self.assertEqual(lua.eval("env.AA_DIAGNOSTIC_STATUS.RunId"), "new-run")
         self.assertTrue(lua.eval("env.AA_DIAGNOSTIC_STATUS.Core.Ready"))
 
+    def test_map_entry_state_is_captured_independently_of_core_ready(self):
+        lua = self.scenario('''game.JobId="current-job"
+        env.AA_LAST_RUNTIME_SNAPSHOT={PlaceId=game.PlaceId,JobId=game.JobId,MatchTransitionState={
+            EntryPending=false,FailureCount=1,LobbyEntry={Mode="Infinite",LevelKey="namek_infinite",Phase="failed"},
+            LastTeleportFailure={Code=769}}}
+        env.AA_EXECUTE_STATE={Phase="ready",Ready=true}\n''')
+        self.assertTrue(lua.eval("env.AA_DIAGNOSTIC_STATUS.Core.Ready"))
+        self.assertEqual(lua.eval("env.AA_DIAGNOSTIC_STATUS.MapEntry.LastErrorCode"),769)
+        self.assertEqual(lua.eval("env.AA_DIAGNOSTIC_STATUS.MapEntry.Phase"),"failed")
+
+    def test_previous_job_map_entry_is_not_reported_as_current(self):
+        lua = self.scenario('''game.JobId="current-job"
+        env.AA_LAST_RUNTIME_SNAPSHOT={PlaceId=game.PlaceId,JobId="previous-job",MatchTransitionState={
+            LobbyEntry={Mode="Story",LevelKey="namek_level_1",Phase="failed"}}}\n''')
+        self.assertIsNone(lua.eval("env.AA_DIAGNOSTIC_STATUS.MapEntry"))
+
 
 if __name__ == "__main__":
     unittest.main()

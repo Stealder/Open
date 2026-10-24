@@ -20,7 +20,7 @@ getgenv().KaitunConfig = {
         Interval = 10,
     },
     Kaitun = true,
-    AutoSummonEarlyGame = false,
+    AutoSummonEarlyGame = true,
     Mode = "Infinite",
     TargetInfiniteMap = "namek_infinite",
     AutoPlace = true,
@@ -31,7 +31,7 @@ getgenv().KaitunConfig = {
     AutoClaimDailyRewards = true,
     LevelRewardMilestones = { 5, 10, 15, 20, 25, 30 },
     LobbyRewards = {
-        ReturnEveryInfiniteMatches = 1,
+        ReturnEveryInfiniteMatches = 4,
         Timeout = 25,
         UIWait = 5,
     },
@@ -55,6 +55,8 @@ getgenv().KaitunConfig = {
         MaxAttempts = 3,
         RetryDelay = 8,
         FloodDelay = 20,
+        EntryTimeout = 60,
+        RequestTimeout = 15,
     },
     AutoSell = {
         Enabled = true,
@@ -62,7 +64,7 @@ getgenv().KaitunConfig = {
     },
     Summon = {
         FillTeam = {
-            Enabled = false,
+            Enabled = true,
         },
         TargetHunt = {
             Enabled = false,
