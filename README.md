@@ -55,7 +55,7 @@ Inspect AA_LOADER_STATE, AA_EXECUTE_STATE, ExecuteState in AA_Live_Stats.json an
 
 Existing loaders pointing directly to main.luau still receive the embedded startup retry. To also retry payload download/compilation, use loader.luau as shown above. The first download of loader.luau itself remains the responsibility of the executor/autoexec.
 
-Validated with 235 existing local tests plus 10 isolated loader-diagnostics tests, Luau compilation and the earlier obfuscated recovery simulation. Live Volt VPS validation is pending.
+Validated with 251 core/recovery tests plus 10 isolated loader-diagnostics tests, Luau compilation and obfuscated recovery simulations. Live Volt VPS validation is pending.
 
 Loader diagnostics now run independently of the Kaitun core. Keep the same `loader.luau` URL and existing KaitunConfig. A local `AA_Execution_Probe_<session-id>.json` file is written in the executor workspace on entry and every 2 seconds. It records the loader stage, heartbeat sequence, core startup state, supported APIs and a sanitized error category/line. It does not export webhook URLs, cookies, usernames or raw exceptions, and it does not read the native Volt console.
 
@@ -74,3 +74,16 @@ Diagnostics require this loader to execute at least once. They cannot observe an
 For the optional Windows challenge/response observer, matching diagnostic replies echo `RunId` from `AA_Diagnostic_Request.json` (Protocol 1). Replies have per-VM SessionId and an advancing Sequence, so old files are not treated as proof of a live VM. `VoltConsoleVisible=false` explicitly separates Lua diagnostics from native executor logs. These files stay local and should not be committed.
 
 Development tests: Python with `lupa`, then `python -m unittest discover -s tests -q`. No network requests or executor processes are used by those tests.
+
+The core also handles local-player `TeleportInitFailed` events during ordinary map transitions, including unexpected teleport failures reported as error 769. It releases stale teleport/in-flight flags, deduplicates failure events for the same request and waits before retrying. A visible 769 prompt is treated as a failed transition, rather than starting a second disconnect/rejoin controller. Lobby queue requests pause during active teleports, rejoin recovery and retry cooldowns.
+
+```lua
+getgenv().KaitunConfig.TeleportRecovery = {
+    Enabled = true,
+    MaxAttempts = 3,
+    RetryDelay = 8,
+    FloodDelay = 20,
+}
+```
+
+These values are defaults; adding them to your config is optional. An active teleport is never duplicated. Unauthorized/invalid destinations and exhausted retry budgets stop recovery, with `NeedsExternalRestart` recorded. Details are in `MatchTransitionState.LastTeleportFailure` inside AA_Live_Stats.json. The build is `teleport-769-recovery-v1`. Recovery cannot override Roblox access controls or guarantee success during a Roblox/network outage. The original farming/reward/summon order is preserved.
