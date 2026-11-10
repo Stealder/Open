@@ -22,8 +22,13 @@ getgenv().KaitunConfig = {
     },
     Kaitun = true,
     AutoSummonEarlyGame = true,
-    Mode = "Story", -- "Story", "Infinite", or "Event"
+    Mode = "Story", -- "Story", "Infinite", "Event", or "DailyChallenge"
     TargetInfiniteMap = "namek_infinite",
+    DailyChallenge = {
+        Enabled = false,
+        AutoMatchmaking = true,   -- Tim tran qua request_matchmaking("__DAILY_CHALLENGE")
+        Priority = true,          -- Uu tien lam Daily Challenge truoc Story/Infinite neu chua xong
+    },
     Story = {
         TargetWorld = "Auto",     -- "Auto" or map id (e.g. "namek", "aot")
         TargetAct = "Auto",       -- "Auto" or act number (1..6)
@@ -38,11 +43,12 @@ getgenv().KaitunConfig = {
         AutoUpgrade = true,
         AutoAbilities = true,
         SmartFarmUpgrade = true,
-        UpgradeFarmsFirst = true,
-        PlaceNearOtherDamageUnits = true,
-        DefendBaseOnLeak = true,
-        LeakDistanceThreshold = 75,
-        ErwinBuffRotation = true,
+        UpgradeFarmsFirst = true,         -- Dat Farm truoc & nang max Farm roi moi dat unit def
+        PlaceNearOtherDamageUnits = false, -- Neu false: tu dong dat theo Smart Place doc theo duong quai di (lane waypoints)
+        DefendBaseOnLeak = true,          -- Bat/tat co phong thu khan cap khi lot quai
+        LeakDistanceThreshold = 75,       -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
+        BuffInfinite = true,              -- Xoay tua buff vo han cho Erwin, Wendy/Wind Song, Brook
+        ErwinBuffRotation = true,         -- Alias tuong thich cho Erwin
     },
     AutoPlace = true,
     AutoUpgrade = true,
@@ -90,8 +96,10 @@ getgenv().KaitunConfig = {
         TargetHunt = {
             Enabled = false,
             TargetUnits = { "Noel" },
-            SpendMode = "AllGems",
+            TargetBanner = "Special",       -- "Auto", "Special", "Standard", "EventClover"
+            SpendMode = "AllGems",          -- "AllGems" or "ReserveGems"
             ReserveAmount = 10000,
+            AutoUseCompass = true,          -- Tu dong dung item Compass truoc khi quay banner
             AutoUseLuckBoost = true,
             AutoBuyLuckBoost = true,
         },
