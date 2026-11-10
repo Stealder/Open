@@ -21,8 +21,28 @@ getgenv().KaitunConfig = {
     },
     Kaitun = true,
     AutoSummonEarlyGame = true,
-    Mode = "Infinite",
+    Mode = "Story", -- "Story", "Infinite", or "Event"
     TargetInfiniteMap = "namek_infinite",
+    Story = {
+        TargetWorld = "Auto",     -- "Auto" or map id (e.g. "namek", "aot")
+        TargetAct = "Auto",       -- "Auto" or act number (1..6)
+        Difficulty = "Normal",    -- "Normal" or "Hard"
+        FriendsOnly = false,
+        AutoNext = true,
+        RetryOnDefeat = true,
+    },
+    AutoPlay = {
+        Enabled = true,
+        AutoPlace = true,
+        AutoUpgrade = true,
+        AutoAbilities = true,
+        SmartFarmUpgrade = true,
+        UpgradeFarmsFirst = true,
+        PlaceNearOtherDamageUnits = true,
+        DefendBaseOnLeak = true,
+        LeakDistanceThreshold = 75,
+        ErwinBuffRotation = true,
+    },
     AutoPlace = true,
     AutoUpgrade = true,
     AutoStart = true,
