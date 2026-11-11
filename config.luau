@@ -44,20 +44,16 @@ getgenv().KaitunConfig = {
     -- 3. IN-GAME MECHANICS
     AutoPlay = {
         Enabled = true,
-        AutoPlace = true,
-        AutoUpgrade = true,
+        SmartPlace = true,                  -- Dat quan thong minh doc theo duong lane, tach rieng khong dung nhau (>= 4.5 studs)
+        PlaceNearOtherPlayersUnits = false,  -- Dat quan chum lai sat vi tri unit dong doi (1.8 - 3.2 studs). Neu bat se tu dong tat SmartPlace
+        UpgradeFarmsFirst = true,           -- Uu tien dat CEO & Bulma truoc, nang max farm roi moi dat/nang unit DPS
+        SmartFarmUpgrade = false,           -- Nang cap farm thong minh theo thu tu toi uu gia
         AutoAbilities = true,
-        SmartFarmUpgrade = true,
-        UpgradeFarmsFirst = true,          -- Dat Farm truoc & nang max Farm roi moi dat unit def
-        PlaceNearOtherDamageUnits = false, -- Neu false: tu dong dat theo Smart Place doc theo duong quai di (lane waypoints)
-        DefendBaseOnLeak = true,           -- Bat/tat co phong thu khan cap khi lot quai
-        LeakDistanceThreshold = 75,        -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
-        BuffInfinite = true,               -- Xoay tua buff vo han cho Erwin, Wendy/Wind Song, Brook
-        ErwinBuffRotation = true,          -- Alias tuong thich cho Erwin
+        DefendBaseOnLeak = true,            -- Bat/tat co phong thu khan cap khi lot quai ve base
+        LeakDistanceThreshold = 75,         -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
+        BuffInfinite = true,                -- Buff vo han: Erwin tu dat gan unit Physical DPS, Wendy tu dat gan unit Magic DPS
     },
 
-    AutoPlace = true,
-    AutoUpgrade = true,
     AutoStart = true,
     AutoSkipWave = true,
     AutoClaimBattlepass = true,
@@ -101,12 +97,10 @@ getgenv().KaitunConfig = {
         },
         TargetHunt = {
             Enabled = false,
-            TargetUnits = { "Noel" },
-            TargetBanner = "Special",       -- "Auto", "Special", "Standard", "EventClover"
-            SpendMode = "AllGems",          -- "AllGems" or "ReserveGems"
-            ReserveAmount = 10000,
-            AutoUseCompass = true,          -- Tu dong dung item Compass truoc khi quay banner
-            AutoUseLuckBoost = true,
+            TargetUnits = { "Ellysa" },      -- Target unit (mac dinh Ellysa / Elizabeth)
+            TargetBanner = "Special",        -- "Special" (Gems) hoac "Summer" (Summer Pearls)
+            gems_amount = 5000,              -- Chi bat dau quay khi so du Gems dat tu muc nay tro len
+            AutoUseLuckBoost = true,         -- Tu dong kich hoat Luck Potion
             AutoBuyLuckBoost = true,
         },
     },
