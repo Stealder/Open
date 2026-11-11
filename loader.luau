@@ -166,10 +166,36 @@ env.AA_LOADER_STATE=state
 local function fetch()
     local done,fetched,source=false,false,nil
     local thread=loaderTask.spawn(function()
-        fetched,source=pcall(function()
-            return game:HttpGet("https://raw.githubusercontent.com/Stealder/Open/main/main.luau")
+        local url = "https://raw.githubusercontent.com/Stealder/Open/main/main.luau"
+        -- 1. Try executor native request API
+        local req = (syn and syn.request) or request or http_request or (http and http.request)
+        if type(req) == "function" then
+            local reqOk, res = pcall(req, { Url = url, Method = "GET" })
+            if reqOk and type(res) == "table" and type(res.Body) == "string" and #res.Body > 0 then
+                fetched, source = true, res.Body
+                done = true
+                return
+            end
+        end
+        -- 2. Fallback to game:HttpGet
+        local getOk, body = pcall(function() return game:HttpGet(url) end)
+        if getOk and type(body) == "string" and #body > 0 then
+            fetched, source = true, body
+            done = true
+            return
+        end
+        -- 3. Fallback to global HttpGet
+        local getOk2, body2 = pcall(function()
+            local get = getgenv().HttpGet or (type(HttpGet) == "function" and HttpGet)
+            if get then return get(url) end
         end)
-        done=true
+        if getOk2 and type(body2) == "string" and #body2 > 0 then
+            fetched, source = true, body2
+            done = true
+            return
+        end
+        fetched, source = false, "All download methods failed or returned non-string"
+        done = true
     end)
     local deadline=os.clock()+timeout
     while not done and os.clock()<deadline do loaderTask.wait(0.1) end
