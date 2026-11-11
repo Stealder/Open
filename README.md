@@ -24,11 +24,15 @@ getgenv().KaitunConfig = {
     AutoSummonEarlyGame = true,
     Mode = "Story", -- "Story", "Infinite", "Event", or "DailyChallenge"
     TargetInfiniteMap = "namek_infinite",
+
+    -- 1. DAILY CHALLENGE (Uu tien so 1 tuyet doi neu duoc bat)
     DailyChallenge = {
-        Enabled = false,
-        AutoMatchmaking = true,   -- Tim tran qua request_matchmaking("__DAILY_CHALLENGE")
-        Priority = true,          -- Uu tien lam Daily Challenge truoc Story/Infinite neu chua xong
+        Enabled = false,          -- Neu bat: Luon uu tien lam xong Daily Challenge truoc Story, Event, Infinite
+        AutoMatchmaking = true,   -- Tim tran tu dong qua __DAILY_CHALLENGE
+        RetryOnDefeat = true,     -- Tu dong thu lai neu that bai cho den khi thang
     },
+
+    -- 2. STORY MODE
     Story = {
         TargetWorld = "Auto",     -- "Auto" or map id (e.g. "namek", "aot")
         TargetAct = "Auto",       -- "Auto" or act number (1..6)
@@ -37,19 +41,22 @@ getgenv().KaitunConfig = {
         AutoNext = true,
         RetryOnDefeat = true,
     },
+
+    -- 3. IN-GAME MECHANICS
     AutoPlay = {
         Enabled = true,
         AutoPlace = true,
         AutoUpgrade = true,
         AutoAbilities = true,
         SmartFarmUpgrade = true,
-        UpgradeFarmsFirst = true,         -- Dat Farm truoc & nang max Farm roi moi dat unit def
+        UpgradeFarmsFirst = true,          -- Dat Farm truoc & nang max Farm roi moi dat unit def
         PlaceNearOtherDamageUnits = false, -- Neu false: tu dong dat theo Smart Place doc theo duong quai di (lane waypoints)
-        DefendBaseOnLeak = true,          -- Bat/tat co phong thu khan cap khi lot quai
-        LeakDistanceThreshold = 75,       -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
-        BuffInfinite = true,              -- Xoay tua buff vo han cho Erwin, Wendy/Wind Song, Brook
-        ErwinBuffRotation = true,         -- Alias tuong thich cho Erwin
+        DefendBaseOnLeak = true,           -- Bat/tat co phong thu khan cap khi lot quai
+        LeakDistanceThreshold = 75,        -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
+        BuffInfinite = true,               -- Xoay tua buff vo han cho Erwin, Wendy/Wind Song, Brook
+        ErwinBuffRotation = true,          -- Alias tuong thich cho Erwin
     },
+
     AutoPlace = true,
     AutoUpgrade = true,
     AutoStart = true,
