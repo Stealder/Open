@@ -2,17 +2,17 @@
 getgenv().KaitunConfig = {
     Kaitun = true,
     AutoSummonEarlyGame = true,
-    Mode = "DailyChallenge", -- "DailyChallenge", "Event", "Story", or "Infinite"
+    Mode = "Event", -- Mode chinh sau khi xong Daily Challenge: "Event", "Story", hoac "Infinite"
     TargetInfiniteMap = "namek_infinite",
 
-    -- 1. DAILY CHALLENGE (Uu tien so 1 tuyet doi neu duoc bat)
+    -- 1. DAILY CHALLENGE (Setting uu tien: Chay xong Daily Challenge truoc roi tu dong chuyen vao Mode chinh)
     DailyChallenge = {
-        Enabled = true,           -- Bat/tat che do Daily Challenge (Luon uu tien hoan thanh Daily truoc)
-        AutoMatchmaking = true,   -- Tim tran ghep doi tu dong qua __DAILY_CHALLENGE
+        Enabled = true,           -- Bat uu tien chay Daily Challenge moi ngay
+        AutoMatchmaking = true,   -- Tim tran ghep doi tu dong (__DAILY_CHALLENGE)
         RetryOnDefeat = true,     -- Tu dong thu lai neu that bai cho den khi thang
     },
 
-    -- 2. EVENT SUMMER (San boss, farm Summer Pearls, mo Capsule & quay Banner Event)
+    -- 2. EVENT SUMMER (Che do Event chinh: San boss, farm Summer Pearls, mo Capsule & quay Banner)
     AutoEvent = {
         Enabled = true,           -- Bat che do Event
         TargetMap = "summer2_event",
@@ -33,7 +33,7 @@ getgenv().KaitunConfig = {
         },
     },
 
-    -- 3. STORY MODE
+    -- 3. STORY MODE (Neu chon Mode = "Story")
     Story = {
         TargetWorld = "Auto",     -- "Auto" hoac map id (vd: "namek", "aot")
         TargetAct = "Auto",       -- "Auto" hoac so act (1..6)
