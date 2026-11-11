@@ -1,57 +1,58 @@
 getgenv().KaitunConfig = {
-    Diagnostics = {
-        Enabled = true,
-        Interval = 2,
-        Duration = 0,
-    },
-    ExecuteRetry = {
-        Enabled = true,
-        MaxAttempts = 2,
-        StartupTimeout = 180,
-        DownloadTimeout = 30,
-        Delay = 5,
-    },
-    AntiSpy = {
-        Enabled = true,
-    },
-    TrackStats = {
-        Enabled = true,
-        Folder = "TrackStats",
-        Interval = 10,
-    },
     Kaitun = true,
     AutoSummonEarlyGame = true,
-    Mode = "Story", -- "Story", "Infinite", "Event", or "DailyChallenge"
+    Mode = "DailyChallenge", -- "DailyChallenge", "Event", "Story", or "Infinite"
     TargetInfiniteMap = "namek_infinite",
 
     -- 1. DAILY CHALLENGE (Uu tien so 1 tuyet doi neu duoc bat)
     DailyChallenge = {
-        Enabled = false,          -- Neu bat: Luon uu tien lam xong Daily Challenge truoc Story, Event, Infinite
-        AutoMatchmaking = true,   -- Tim tran tu dong qua __DAILY_CHALLENGE
+        Enabled = true,           -- Bat/tat che do Daily Challenge (Luon uu tien hoan thanh Daily truoc)
+        AutoMatchmaking = true,   -- Tim tran ghep doi tu dong qua __DAILY_CHALLENGE
         RetryOnDefeat = true,     -- Tu dong thu lai neu that bai cho den khi thang
     },
 
-    -- 2. STORY MODE
+    -- 2. EVENT SUMMER (San boss, farm Summer Pearls, mo Capsule & quay Banner Event)
+    AutoEvent = {
+        Enabled = true,           -- Bat che do Event
+        TargetMap = "summer2_event",
+        AutoMatchmaking = true,   -- Tim tran ghep doi tu dong phong event
+        AutoClaimBoard = true,    -- Tu dong nhan thuong bang nhiem vu / event board
+        LeaveLowLevel = true,     -- Tu dong roi phong neu dong doi level qua thap
+        MinPlayerLevel = 10,      -- Level toi thieu cua dong doi
+        AutoSummon = true,        -- Tu dong quay banner hoac mo capsule
+        KeepSummerPearls = 0,     -- So luong Summer Pearls giu lai khong tieu
+        Summon = {
+            Enabled = true,
+            Mode = "Banner",       -- "Banner" (quay bang Summer Pearls) hoac "Inventory" (mo capsule_summer2 trong tui)
+            TargetBanner = "Auto", -- "Auto" (tu dong nhan dien Summer banner), hoac chi dinh ten
+            CapsuleId = "capsule_summer2",
+            KeepSummerPearls = 0,
+            StopWhenOutOfPearls = true,
+            StopOnMythicOrSecret = true,
+        },
+    },
+
+    -- 3. STORY MODE
     Story = {
-        TargetWorld = "Auto",     -- "Auto" or map id (e.g. "namek", "aot")
-        TargetAct = "Auto",       -- "Auto" or act number (1..6)
-        Difficulty = "Normal",    -- "Normal" or "Hard"
+        TargetWorld = "Auto",     -- "Auto" hoac map id (vd: "namek", "aot")
+        TargetAct = "Auto",       -- "Auto" hoac so act (1..6)
+        Difficulty = "Normal",    -- "Normal" hoac "Hard"
         FriendsOnly = false,
         AutoNext = true,
         RetryOnDefeat = true,
     },
 
-    -- 3. IN-GAME MECHANICS
+    -- 4. IN-GAME MECHANICS (AUTO PLAY)
     AutoPlay = {
         Enabled = true,
-        SmartPlace = true,                  -- Dat quan thong minh doc theo duong lane, tach rieng khong dung nhau (>= 4.5 studs)
-        PlaceNearOtherPlayersUnits = false,  -- Dat quan chum lai sat vi tri unit dong doi (1.8 - 3.2 studs). Neu bat se tu dong tat SmartPlace
+        SmartPlace = true,                  -- Dat quan doc theo lane waypoints, tach rieng khong cham nhau (>= 4.5 studs)
+        PlaceNearOtherPlayersUnits = false,  -- Dat quan chum lai sat unit dong doi (1.8 - 3.2 studs). Neu bat se tu dong tat SmartPlace
         UpgradeFarmsFirst = true,           -- Uu tien dat CEO & Bulma truoc, nang max farm roi moi dat/nang unit DPS
-        SmartFarmUpgrade = false,           -- Nang cap farm thong minh theo thu tu toi uu gia
-        AutoAbilities = true,
-        DefendBaseOnLeak = true,            -- Bat/tat co phong thu khan cap khi lot quai ve base
-        LeakDistanceThreshold = 75,         -- Nguong khoang cach (studs) tu quai den nha de kich hoat thu khan cap
-        BuffInfinite = true,                -- Buff vo han: Erwin tu dat gan unit Physical DPS, Wendy tu dat gan unit Magic DPS
+        SmartFarmUpgrade = false,           -- Nang cap farm thong minh theo thu tu gia re
+        AutoAbilities = true,               -- Tu dong dung skill chu dong
+        DefendBaseOnLeak = true,            -- Bat co phong thu khan cap khi quai lot ve base
+        LeakDistanceThreshold = 75,         -- Khoang cach (studs) tu quai den base de kich hoat thu base
+        BuffInfinite = true,                -- Erwin tu dat gan Physical DPS, Wendy tu dat gan Magic DPS; xoay tua buff lien tuc
     },
 
     AutoStart = true,
@@ -91,20 +92,24 @@ getgenv().KaitunConfig = {
         Enabled = true,
         Wave = 25,
     },
+
+    -- 5. SUMMON & TARGET HUNT
     Summon = {
         FillTeam = {
             Enabled = true,
         },
         TargetHunt = {
-            Enabled = false,
-            TargetUnits = { "Elyssia" },     -- Target unit (mac dinh Elyssia / Ellysa - Update 21)
+            Enabled = false,                 -- Bat/tat san target unit
+            TargetUnits = { "Elyssia" },     -- Target unit (Elyssia - Celestial Compass U21)
             TargetBanner = "Special",        -- "Special" (Gems) hoac "Summer" (Summer Pearls)
             gems_amount = 5000,              -- Chi bat dau quay khi so du Gems dat tu muc nay tro len
-            AutoUseCompass = true,           -- Tu dong set Celestial Compass (Update 21) cho target unit truoc khi quay
-            AutoUseLuckBoost = true,         -- Tu dong kich hoat Luck Potion
+            AutoUseCompass = true,           -- Tu dong set Celestial Compass (Update 21) cho Elyssia truoc khi quay
+            AutoUseLuckBoost = true,         -- Tu dong dung Luck Potion
             AutoBuyLuckBoost = true,
         },
     },
+
+    -- 6. PERFORMANCE & OPTIMIZATION
     BlackScreen = true,
     DeleteMap = true,
     HideEnemyHealthBars = true,
