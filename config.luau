@@ -97,9 +97,10 @@ getgenv().KaitunConfig = {
         },
         TargetHunt = {
             Enabled = false,
-            TargetUnits = { "Ellysa" },      -- Target unit (mac dinh Ellysa / Elizabeth)
+            TargetUnits = { "Elyssia" },     -- Target unit (mac dinh Elyssia / Ellysa - Update 21)
             TargetBanner = "Special",        -- "Special" (Gems) hoac "Summer" (Summer Pearls)
             gems_amount = 5000,              -- Chi bat dau quay khi so du Gems dat tu muc nay tro len
+            AutoUseCompass = true,           -- Tu dong set Celestial Compass (Update 21) cho target unit truoc khi quay
             AutoUseLuckBoost = true,         -- Tu dong kich hoat Luck Potion
             AutoBuyLuckBoost = true,
         },
