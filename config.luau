@@ -6,7 +6,7 @@ getgenv().KaitunConfig = {
 
     -- Farm EXP nhanh thay vi di Inf (Join Namek Act 1 Hard, khong dat unit, den Wave 6 vote_lose_game + replay)
     ExpFarm = {
-        Enabled = false,          -- Bat de dung ExpFarm thay cho Infinite (hoac dat Mode = "ExpFarm")
+        Enabled = true,           -- Mac dinh bat dung ExpFarm thay cho Infinite (dat false neu muon di Infinite)
         World = "namek",
         Act = 1,
         Difficulty = "Hard",
