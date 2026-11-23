@@ -1,21 +1,8 @@
 getgenv().KaitunConfig = {
     Kaitun = true,
     AutoSummonEarlyGame = true,
-    Mode = "Event", -- Mode chinh sau khi xong Daily Challenge: "Event", "Story", "Infinite", hoac "ExpFarm"
+    Mode = "Event", -- Mode chinh sau khi xong Daily Challenge: "Event", "Story", "Infinite", "DailyChallenge", hoac "ExpFarm" (Act 1 Hard -> Wave 6 Vote Lose)
     TargetInfiniteMap = "namek_infinite",
-
-    -- Farm EXP nhanh thay vi di Inf (Join Namek Act 1 Hard, khong dat unit, den Wave 6 vote_lose_game + replay)
-    ExpFarm = {
-        Enabled = true,           -- Mac dinh bat dung ExpFarm thay cho Infinite (dat false neu muon di Infinite)
-        World = "namek",
-        Act = 1,
-        Difficulty = "Hard",
-        FriendsOnly = true,
-        VoteLoseWave = 6,
-        VoteLoseDelay = 4,
-        PlaceUnits = false,
-        RetryOnFinish = true,
-    },
 
     -- 1. DAILY CHALLENGE (Setting uu tien: Chay xong Daily Challenge truoc roi tu dong chuyen vao Mode chinh)
     DailyChallenge = {
