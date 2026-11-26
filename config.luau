@@ -3,6 +3,10 @@ getgenv().KaitunConfig = {
     AutoSummonEarlyGame = true,
     Mode = "Event", -- Mode chinh sau khi xong Daily Challenge: "Event", "Story", "Infinite", "DailyChallenge", hoac "ExpFarm" (Act 1 Hard -> Wave 6 Vote Lose)
     TargetInfiniteMap = "namek_infinite",
+    ExpFarm = {
+        StopAtLevel = 0,          -- Dat den level nay se ngung ExpFarm va chuyen sang NextMode (0 = chay mai khong dung, vd dat 50)
+        NextMode = "Infinite",    -- Mode chuyen sang khi du level: "Infinite" (van tu mo Story Act 1-6 neu chua mo), "Event", "Story"
+    },
 
     -- 1. DAILY CHALLENGE (Setting uu tien: Chay xong Daily Challenge truoc roi tu dong chuyen vao Mode chinh)
     DailyChallenge = {
@@ -28,7 +32,8 @@ getgenv().KaitunConfig = {
             CapsuleId = "capsule_summer2",
             KeepSummerPearls = 0,
             StopWhenOutOfPearls = true,
-            StopOnMythicOrSecret = false, -- false = quay den khi het tien + tu ban R/E/L; true = dung ngay khi ra Mythic/Secret
+            StopOnMythicOrSecret = false, -- false = quay den khi het tien hoac gap loi; true = dung ngay khi ra Mythic/Secret
+            RollDelay = 2.5,              -- Nghi giua moi lan mo (giay) de AutoSell trong game kip xu ly
         },
     },
 
@@ -59,7 +64,6 @@ getgenv().KaitunConfig = {
     AutoSkipWave = true,
     AutoClaimBattlepass = true,
     AutoClaimDailyRewards = true,
-    LevelRewardMilestones = { 5, 10, 15, 20, 25, 30 },
     LobbyRewards = {
         ReturnEveryInfiniteMatches = 4,
         Timeout = 25,
