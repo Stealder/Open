@@ -19,16 +19,16 @@ getgenv().KaitunConfig = {
         AutoClaimBoard = true,    -- Tu dong nhan thuong bang nhiem vu / event board
         LeaveLowLevel = true,     -- Tu dong roi phong neu dong doi level qua thap
         MinPlayerLevel = 10,      -- Level toi thieu cua dong doi
-        AutoSummon = false,        -- Tu dong quay banner hoac mo capsule
-        KeepSummerPearls = 0,     -- So luong Summer Pearls giu lai khong tieu
+        AutoSummon = false,       -- Bat true de tu dong quay Event Banner / mo Capsule den khi het Summer Pearls
+        KeepSummerPearls = 0,     -- So luong Summer Pearls giu lai khong tieu (0 = tieu sach)
         Summon = {
             Enabled = false,
             Mode = "Banner",       -- "Banner" (quay bang Summer Pearls) hoac "Inventory" (mo capsule_summer2 trong tui)
-            TargetBanner = "Auto", -- "Auto" (tu dong nhan dien Summer banner), hoac chi dinh ten
+            TargetBanner = "Auto", -- "Auto" (tu dong nhan dien Summer2026 / Summer2), hoac chi dinh ten
             CapsuleId = "capsule_summer2",
             KeepSummerPearls = 0,
             StopWhenOutOfPearls = true,
-            StopOnMythicOrSecret = true,
+            StopOnMythicOrSecret = false, -- false = quay den khi het tien + tu ban R/E/L; true = dung ngay khi ra Mythic/Secret
         },
     },
 
